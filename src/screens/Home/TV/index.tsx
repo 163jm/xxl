@@ -201,14 +201,25 @@ export default memo(() => {
     return () => { global.state_event.off('tvPlayDetailPopped', handler) }
   }, [])
 
-  // TVMusicDetail（歌单/排行榜/我的列表详情）pop 后，焦点回到左侧栏对应图标
+  // TVMusicDetail（歌单/排行榜/我的列表详情）pop 后，焦点回到原来点击的卡片
   useEffect(() => {
     const handler = () => {
       const currentId = commonState.navActiveId
-      setFocusZone('sidebar')
-      requestAnimationFrame(() => {
-        navBtnRefs.current.get(currentId)?.requestFocus()
-      })
+      const panel = (() => {
+        switch (currentId) {
+          case 'nav_songlist': return songlistRef.current
+          case 'nav_top':     return leaderboardRef.current
+          case 'nav_love':    return mylistRef.current
+          default: return null
+        }
+      })()
+      if (panel && 'restoreFocus' in panel && typeof (panel as any).restoreFocus === 'function') {
+        setFocusZone('content')
+        requestAnimationFrame(() => { (panel as any).restoreFocus() })
+      } else {
+        setFocusZone('sidebar')
+        requestAnimationFrame(() => { navBtnRefs.current.get(currentId)?.requestFocus() })
+      }
     }
     global.state_event.on('tvMusicDetailPopped', handler)
     return () => { global.state_event.off('tvMusicDetailPopped', handler) }
