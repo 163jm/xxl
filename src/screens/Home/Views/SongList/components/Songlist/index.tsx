@@ -4,6 +4,7 @@ import { type ListInfoItem } from '@/store/songlist/state'
 import List, { type ListProps, type ListType, type Status } from './List'
 import { navigations } from '@/navigation'
 import commonState from '@/store/common/state'
+import { type TVButtonType } from '@/components/common/TVButton'
 
 export interface SonglistProps {
   onRefresh: ListProps['onRefresh']
@@ -12,6 +13,7 @@ export interface SonglistProps {
 export interface SonglistType {
   setList: (list: ListInfoItem[], showSource?: boolean) => void
   setStatus: (val: Status) => void
+  restoreFocus: () => void
 }
 
 export default forwardRef<SonglistType, SonglistProps>(({
@@ -19,7 +21,7 @@ export default forwardRef<SonglistType, SonglistProps>(({
   onLoadMore,
 }, ref) => {
   const listRef = useRef<ListType>(null)
-  // const loadingMaskRef = useRef<LoadingMaskType>(null)
+  const lastFocusedCardRef = useRef<TVButtonType | null>(null)
 
   useImperativeHandle(ref, () => ({
     setList(list, showSource) {
@@ -28,10 +30,14 @@ export default forwardRef<SonglistType, SonglistProps>(({
     setStatus(val) {
       listRef.current?.setStatus(val)
     },
+    restoreFocus() {
+      lastFocusedCardRef.current?.requestFocus()
+    },
   }))
 
-  const handleOpenDetail = (item: ListInfoItem, index: number) => {
+  const handleOpenDetail = (item: ListInfoItem, index: number, btn: TVButtonType) => {
     if (!commonState.componentIds.home) return
+    lastFocusedCardRef.current = btn
     navigations.pushTVMusicDetailScreen(commonState.componentIds.home, {
       type: 'songlist',
       id: item.id,
