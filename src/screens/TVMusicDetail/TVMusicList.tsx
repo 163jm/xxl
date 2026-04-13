@@ -17,7 +17,7 @@ import TVPagination from './TVPagination'
 import TVListItem, { MyListItem, ITEM_HEIGHT, type TVListItemHandle } from './TVListItem'
 import { useI18n } from '@/lang'
 
-const PAGE_SIZE = 16  // 每页16首，左右各8行
+const PAGE_SIZE = 10  // 每页10首，左右各5行
 const COL_SIZE  = PAGE_SIZE / 2  // 每列8行
 
 // ─── ref 存储结构 ─────────────────────────────────────────────────────────────
