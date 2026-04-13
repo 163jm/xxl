@@ -191,17 +191,17 @@ export default memo(() => {
     return () => { sub.remove() }
   }, [])
 
-  // 播放详情页 pop 后，焦点回到侧边栏播放按钮
+  // 播放详情页即将 pop，提前把焦点还给侧边栏播放按钮
   useEffect(() => {
     const handler = () => {
       setFocusZone('sidebar')
-      requestAnimationFrame(() => { playBtnRef.current?.requestFocus() })
+      playBtnRef.current?.requestFocus()
     }
-    global.state_event.on('tvPlayDetailPopped', handler)
-    return () => { global.state_event.off('tvPlayDetailPopped', handler) }
+    global.state_event.on('tvPlayDetailWillPop', handler)
+    return () => { global.state_event.off('tvPlayDetailWillPop', handler) }
   }, [])
 
-  // TVMusicDetail（歌单/排行榜/我的列表详情）pop 后，焦点回到原来点击的卡片
+  // TVMusicDetail（歌单/排行榜/我的列表详情）即将 pop，提前把焦点设回原来点击的卡片
   useEffect(() => {
     const handler = () => {
       const currentId = commonState.navActiveId
@@ -215,14 +215,14 @@ export default memo(() => {
       })()
       if (panel && 'restoreFocus' in panel && typeof (panel as any).restoreFocus === 'function') {
         setFocusZone('content')
-        requestAnimationFrame(() => { (panel as any).restoreFocus() })
+        ;(panel as any).restoreFocus()
       } else {
         setFocusZone('sidebar')
-        requestAnimationFrame(() => { navBtnRefs.current.get(currentId)?.requestFocus() })
+        navBtnRefs.current.get(currentId)?.requestFocus()
       }
     }
-    global.state_event.on('tvMusicDetailPopped', handler)
-    return () => { global.state_event.off('tvMusicDetailPopped', handler) }
+    global.state_event.on('tvMusicDetailWillPop', handler)
+    return () => { global.state_event.off('tvMusicDetailWillPop', handler) }
   }, [])
 
   const handleExitPress = useCallback(() => {
