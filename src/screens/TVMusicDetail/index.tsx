@@ -39,10 +39,9 @@ export default ({ componentId, params }: { componentId: string; params: TVMusicD
   useEffect(() => {
     setComponentId(COMPONENT_IDS.tvMusicDetail, componentId)
     const back = BackHandler.addEventListener('hardwareBackPress', () => {
-      void pop(componentId).then(() => {
-        // 通知 TV home 焦点回到左侧栏对应图标
-        global.state_event.emit('tvMusicDetailPopped')
-      })
+      // 先通知主页把焦点设好，再 pop，避免 pop 动画时系统自动聚焦播放按钮
+      global.state_event.emit('tvMusicDetailWillPop')
+      void pop(componentId)
       return true
     })
     return () => { back.remove() }
