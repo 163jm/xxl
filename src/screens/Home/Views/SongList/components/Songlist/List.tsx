@@ -10,6 +10,7 @@ import { useI18n } from '@/lang'
 import { scaleSizeW } from '@/utils/pixelRatio'
 import { createStyle } from '@/utils/tools'
 import Text from '@/components/common/Text'
+import { type TVButtonType } from '@/components/common/TVButton'
 
 type FlatListType = FlatListProps<ListInfoItem>
 
@@ -20,7 +21,7 @@ const GAP = scaleSizeW(20)
 export interface ListProps {
   onRefresh: () => void
   onLoadMore: () => void
-  onOpenDetail: (item: ListInfoItem, index: number) => void
+  onOpenDetail: (item: ListInfoItem, index: number, btn: TVButtonType) => void
 }
 export type Status = 'loading' | 'refreshing' | 'end' | 'error' | 'idle'
 
