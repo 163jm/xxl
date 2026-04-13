@@ -113,6 +113,8 @@ export interface TVSongListPanelType {
   isFilterVisible: () => boolean
   /** 关闭筛选弹窗 */
   closeFilter: () => void
+  /** 还焦点到上次点击的卡片 */
+  restoreFocus: () => void
 }
 
 export default memo(forwardRef<TVSongListPanelType>((_, ref) => {
@@ -143,6 +145,9 @@ export default memo(forwardRef<TVSongListPanelType>((_, ref) => {
     closeFilter() {
       setFilterVisible(false)
       filterVisibleRef.current = false
+    },
+    restoreFocus() {
+      listRef.current?.restoreFocus()
     },
   }))
 
@@ -231,7 +236,7 @@ export default memo(forwardRef<TVSongListPanelType>((_, ref) => {
         <View style={s.spacer} />
         <OpenList ref={openListRef} />
         <TVButton style={s.filterBtn} onPress={handleOpenFilter} onFocus={() => setFocusZone('topbar')}>
-          <Text>筛选</Text>
+          <Icon name="slider" size={20} color={theme['c-font']} />
         </TVButton>
       </View>
 
