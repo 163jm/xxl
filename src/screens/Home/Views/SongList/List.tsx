@@ -7,6 +7,7 @@ import { type Source } from '@/store/songlist/state'
 
 export interface ListType {
   loadList: (source: Source, sortId: string, tagId: string) => void
+  restoreFocus: () => void
 }
 
 export default forwardRef<ListType, {}>((props, ref) => {
@@ -36,6 +37,9 @@ export default forwardRef<ListType, {}>((props, ref) => {
           listRef.current?.setStatus('error')
         })
       }
+    },
+    restoreFocus() {
+      listRef.current?.restoreFocus()
     },
   }), [])
 
@@ -80,4 +84,3 @@ export default forwardRef<ListType, {}>((props, ref) => {
     onLoadMore={handleLoadMore}
    />
 })
-
