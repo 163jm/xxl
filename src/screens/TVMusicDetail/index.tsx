@@ -81,7 +81,7 @@ export default ({ componentId, params }: { componentId: string; params: TVMusicD
               : null
             }
             {/* 播放详情：有封面显示封面，无封面显示播放/暂停图标 */}
-            <TVButton style={styles.playBtn} borderRadius={22} onPress={openPlayDetail} hasTVPreferredFocus>
+            <TVButton style={styles.playBtn} borderRadius={22} onPress={openPlayDetail}>
               {musicInfo.pic
                 ? <Image url={musicInfo.pic} style={styles.playBtnImg} />
                 : <Icon name={isPlay ? 'pause' : 'play'} size={20} color={theme['c-primary']} />
