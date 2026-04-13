@@ -231,7 +231,7 @@ export default memo(forwardRef<TVSongListPanelType>((_, ref) => {
         <View style={s.spacer} />
         <OpenList ref={openListRef} />
         <TVButton style={s.filterBtn} onPress={handleOpenFilter} onFocus={() => setFocusZone('topbar')}>
-          <Icon name="slider" size={20} color={theme['c-font']} />
+          <Text>筛选</Text>
         </TVButton>
       </View>
 
