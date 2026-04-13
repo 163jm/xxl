@@ -103,6 +103,7 @@ export interface TVMyListGridPanelType {
   focusTopBar: () => void
   isDialogVisible: () => boolean
   closeDialog: () => void
+  restoreFocus: () => void
 }
 
 // ─── 主面板 ──────────────────────────────────────────────────────────────────
@@ -116,6 +117,7 @@ export default memo(forwardRef<TVMyListGridPanelType>((_, ref) => {
   const [actionMenus, setActionMenus] = useState<MenuItemDef[]>([])
   const selectedRef = useRef<{ listInfo: LX.List.MyListInfo; index: number } | null>(null)
   const lastDotsBtnRef = useRef<TVButtonType | null>(null)
+  const lastFocusedCardRef = useRef<TVButtonType | null>(null)
   // 顶部标题区域的 ref（用于 back 时还焦点）
   const titleAreaRef = useRef<TVButtonType>(null)
 
@@ -126,8 +128,6 @@ export default memo(forwardRef<TVMyListGridPanelType>((_, ref) => {
 
   useImperativeHandle(ref, () => ({
     focusTopBar() {
-      // 我的列表顶部没有 Tab，把焦点给第一个方块（如有），否则不处理
-      // titleAreaRef 作为占位，实际焦点给第一个方块——这里简单触发第一张卡片焦点
       titleAreaRef.current?.requestFocus()
     },
     isDialogVisible() {
@@ -137,6 +137,13 @@ export default memo(forwardRef<TVMyListGridPanelType>((_, ref) => {
       setActionVisible(false)
       actionVisibleRef.current = false
       requestAnimationFrame(() => { lastDotsBtnRef.current?.requestFocus() })
+    },
+    restoreFocus() {
+      if (lastFocusedCardRef.current) {
+        lastFocusedCardRef.current.requestFocus()
+      } else {
+        titleAreaRef.current?.requestFocus()
+      }
     },
   }))
 
@@ -207,8 +214,9 @@ export default memo(forwardRef<TVMyListGridPanelType>((_, ref) => {
     }
   }, [])
 
-  const handleOpenList = useCallback((listInfo: LX.List.MyListInfo) => {
+  const handleOpenList = useCallback((listInfo: LX.List.MyListInfo, btnRef: TVButtonType) => {
     if (!commonState.componentIds.home) return
+    lastFocusedCardRef.current = btnRef
     navigations.pushTVMusicDetailScreen(commonState.componentIds.home, {
       type: 'mylist',
       id: listInfo.id,
@@ -278,16 +286,18 @@ const CardItem = memo(({
   listInfo: LX.List.MyListInfo
   index: number
   theme: any
-  onOpen: (listInfo: LX.List.MyListInfo) => void
+  onOpen: (listInfo: LX.List.MyListInfo, btn: TVButtonType) => void
   onShowDots: (listInfo: LX.List.MyListInfo, index: number, btn: TVButtonType) => void
 }) => {
   const dotsBtnRef = useRef<TVButtonType>(null)
+  const cardBtnRef = useRef<TVButtonType>(null)
   return (
     <View style={s.cardWrap}>
       <TVButton
+        ref={cardBtnRef}
         style={[s.card, { backgroundColor: theme['c-primary-background'] }]}
         borderRadius={8}
-        onPress={() => onOpen(listInfo)}
+        onPress={() => { if (cardBtnRef.current) onOpen(listInfo, cardBtnRef.current) }}
         onFocus={() => setFocusZone('content')}
       >
         <Text size={14} color={theme['c-primary']} style={s.cardLabel}>列表</Text>
