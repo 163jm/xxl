@@ -28,10 +28,10 @@ export default memo(({ page, maxPage, onPrev, onNext }: Props) => {
         onPress={onPrev}
         disabled={!canPrev}
       >
-        <Text size={sf(20)} color={canPrev ? theme['c-font'] : theme['c-font-label']}>{'‹'}</Text>
+        <Text size={sf(26)} color={canPrev ? theme['c-font'] : theme['c-font-label']}>{'‹'}</Text>
       </TVButton>
 
-      <Text style={styles.pageText} size={sf(15)} color={theme['c-font']}>
+      <Text style={styles.pageText} size={sf(20)} color={theme['c-font']}>
         {page}
       </Text>
 
@@ -41,7 +41,7 @@ export default memo(({ page, maxPage, onPrev, onNext }: Props) => {
         onPress={onNext}
         disabled={!canNext}
       >
-        <Text size={sf(20)} color={canNext ? theme['c-font'] : theme['c-font-label']}>{'›'}</Text>
+        <Text size={sf(26)} color={canNext ? theme['c-font'] : theme['c-font-label']}>{'›'}</Text>
       </TVButton>
     </View>
   )
@@ -52,19 +52,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: sh(10),
-    gap: sw(16),
+    paddingVertical: sh(14),
+    gap: sw(24),
     flexShrink: 0,
   },
   btn: {
-    paddingHorizontal: sw(20),
-    paddingVertical: sh(8),
+    paddingHorizontal: sw(28),
+    paddingVertical: sh(12),
     borderRadius: sr(6),
-    minWidth: sw(48),
+    minWidth: sw(60),
     alignItems: 'center',
   },
   pageText: {
-    minWidth: sw(32),
+    minWidth: sw(40),
     textAlign: 'center',
   },
 })

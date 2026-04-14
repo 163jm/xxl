@@ -104,7 +104,7 @@ export default memo(forwardRef<TVLeaderboardGridPanelType>((_, ref) => {
               onFocus={() => setFocusZone('topbar')}
               hasTVPreferredFocus={i === 0}
             >
-              <Text size={sf(18)} color={active ? theme['c-primary'] : undefined}>{label}</Text>
+              <Text size={sf(22)} color={active ? theme['c-primary'] : undefined}>{label}</Text>
             </TVButton>
           )
         })}
@@ -141,9 +141,9 @@ const BoardCard = memo(({ item, theme, onOpen }: {
         onPress={() => { if (btnRef.current) onOpen(item, btnRef.current) }}
         onFocus={() => setFocusZone('content')}
       >
-        <Text size={sf(14)} color={theme['c-primary']} style={s.cardLabel}>排行榜</Text>
+        <Text size={sf(18)} color={theme['c-primary']} style={s.cardLabel}>排行榜</Text>
       </TVButton>
-      <Text style={s.cardName} size={sf(12)} color={theme['c-font']} numberOfLines={2}>{item.name}</Text>
+      <Text style={s.cardName} size={sf(16)} color={theme['c-font']} numberOfLines={2}>{item.name}</Text>
     </View>
   )
 })
@@ -153,21 +153,21 @@ const s = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: sw(8),
-    paddingVertical: sh(4),
+    paddingHorizontal: sw(12),
+    paddingVertical: sh(6),
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexShrink: 0,
   },
   tab: {
-    paddingVertical: sh(10),
-    paddingHorizontal: sw(14),
+    paddingVertical: sh(12),
+    paddingHorizontal: sw(18),
     borderRadius: sr(8),
     borderBottomWidth: sh(3),
     borderBottomColor: 'transparent',
   },
-  gridContent: { paddingHorizontal: sw(16), paddingTop: sh(16), paddingBottom: sh(24) },
-  cardWrap: { flex: 1, alignItems: 'center', paddingHorizontal: sw(8), paddingBottom: sh(20) },
-  card: { width: '100%', aspectRatio: 1.2, borderRadius: sr(8), justifyContent: 'center', alignItems: 'center' },
+  gridContent: { paddingHorizontal: sw(24), paddingTop: sh(20), paddingBottom: sh(24) },
+  cardWrap: { flex: 1, alignItems: 'center', paddingHorizontal: sw(12), paddingBottom: sh(24) },
+  card: { width: '100%', aspectRatio: 1.2, borderRadius: sr(10), justifyContent: 'center', alignItems: 'center' },
   cardLabel: { fontWeight: '500' },
-  cardName: { marginTop: sh(6), textAlign: 'center', lineHeight: sh(18) },
+  cardName: { marginTop: sh(8), textAlign: 'center', lineHeight: sh(24) },
 })

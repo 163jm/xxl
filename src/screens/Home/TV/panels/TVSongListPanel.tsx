@@ -229,14 +229,14 @@ export default memo(forwardRef<TVSongListPanelType>((_, ref) => {
               onFocus={() => setFocusZone('topbar')}
               hasTVPreferredFocus={i === 0}
             >
-              <Text size={sf(20)} color={active ? primary : undefined}>{label}</Text>
+              <Text size={sf(24)} color={active ? primary : undefined}>{label}</Text>
             </TVButton>
           )
         })}
         <View style={s.spacer} />
         <OpenList ref={openListRef} />
         <TVButton style={s.filterBtn} onPress={handleOpenFilter} onFocus={() => setFocusZone('topbar')}>
-          <Text color={theme['c-font']}>筛选</Text>
+          <Text size={sf(20)} color={theme['c-font']}>筛选</Text>
         </TVButton>
       </View>
 
@@ -252,17 +252,17 @@ const s = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: sw(8),
+    paddingHorizontal: sw(12),
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexShrink: 0,
   },
   sourceTab: {
-    paddingVertical: sh(10),
-    paddingHorizontal: sw(14),
+    paddingVertical: sh(12),
+    paddingHorizontal: sw(18),
     borderRadius: sr(8),
     borderBottomWidth: sh(3),
     borderBottomColor: 'transparent',
   },
   spacer: { flex: 1 },
-  filterBtn: { padding: sw(10), borderRadius: sr(8) },
+  filterBtn: { padding: sw(12), borderRadius: sr(8) },
 })

@@ -10,12 +10,10 @@ import Badge, { type BadgeType } from '@/components/common/Badge'
 import { Icon } from '@/components/common/Icon'
 import { useTheme } from '@/store/theme/hook'
 import TVButton, { type TVButtonType } from '@/components/common/TVButton'
-import { scaleSizeH } from '@/utils/pixelRatio'
 import { LIST_ITEM_HEIGHT } from '@/config/constant'
 import { sw, sh, sf, sr } from '@/utils/tvScale'
 
-export const ITEM_HEIGHT = (scaleSizeH(LIST_ITEM_HEIGHT) * 1.15) || (LIST_ITEM_HEIGHT * 1.15)
-
+export const ITEM_HEIGHT = sh(LIST_ITEM_HEIGHT * 1.4)
 export interface TVListItemHandle {
   /** 焦点到主按钮 */
   focusMain: () => void
@@ -84,15 +82,15 @@ export const MyListItem = forwardRef<TVListItemHandle, {
       >
         <View style={styles.inner}>
           {isActive
-            ? <Icon style={styles.sn} name="play-outline" size={sf(14)} color={theme['c-primary']} />
-            : <Text style={styles.sn} size={sf(13)} color={theme['c-300']}>{index + 1}</Text>
+            ? <Icon style={styles.sn} name="play-outline" size={sf(18)} color={theme['c-primary']} />
+            : <Text style={styles.sn} size={sf(16)} color={theme['c-300']}>{index + 1}</Text>
           }
           <View style={styles.nameWrap}>
-            <Text numberOfLines={1} size={sf(15)} color={isActive ? theme['c-primary'] : theme['c-font']}>
+            <Text numberOfLines={1} size={sf(18)} color={isActive ? theme['c-primary'] : theme['c-font']}>
               {item.name}
             </Text>
           </View>
-          <Text style={styles.singer} size={sf(13)} color={theme['c-500']} numberOfLines={1}>
+          <Text style={styles.singer} size={sf(16)} color={theme['c-500']} numberOfLines={1}>
             {item.singer}
           </Text>
         </View>
@@ -110,7 +108,7 @@ export const MyListItem = forwardRef<TVListItemHandle, {
         }}
         onPress={handleShowMenu}
       >
-        <Icon name="dots-vertical" size={sf(14)} color={theme['c-350']} />
+        <Icon name="dots-vertical" size={sf(18)} color={theme['c-350']} />
       </TVButton>
     </View>
   )
@@ -154,12 +152,12 @@ const TVListItem = forwardRef<TVListItemHandle, {
         onPress={() => onPress(item, index)}
       >
         <View style={styles.inner}>
-          <Text style={styles.sn} size={sf(13)} color={theme['c-300']}>{index + 1}</Text>
+          <Text style={styles.sn} size={sf(16)} color={theme['c-300']}>{index + 1}</Text>
           <View style={styles.nameWrap}>
-            <Text numberOfLines={1} size={sf(15)} color={theme['c-font']}>{item.name}</Text>
+            <Text numberOfLines={1} size={sf(18)} color={theme['c-font']}>{item.name}</Text>
           </View>
           {qualityTag.type ? <Badge type={qualityTag.type}>{qualityTag.text}</Badge> : null}
-          <Text style={styles.singer} size={sf(13)} color={theme['c-500']} numberOfLines={1}>
+          <Text style={styles.singer} size={sf(16)} color={theme['c-500']} numberOfLines={1}>
             {item.singer}
           </Text>
         </View>
@@ -176,7 +174,7 @@ const TVListItem = forwardRef<TVListItemHandle, {
         }}
         onPress={handleShowMenu}
       >
-        <Icon name="dots-vertical" size={sf(14)} color={theme['c-350']} />
+        <Icon name="dots-vertical" size={sf(18)} color={theme['c-350']} />
       </TVButton>
     </View>
   )
@@ -199,10 +197,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: '100%',
-    paddingHorizontal: sw(4),
+    paddingHorizontal: sw(8),
   },
   sn: {
-    width: sw(44),
+    width: sw(52),
     textAlign: 'center',
   },
   nameWrap: {
@@ -218,7 +216,7 @@ const styles = StyleSheet.create({
   },
   more: {
     height: '80%',
-    paddingHorizontal: sw(16),
+    paddingHorizontal: sw(20),
     justifyContent: 'center',
   },
 })

@@ -236,7 +236,7 @@ export default memo(forwardRef<TVMyListGridPanelType>((_, ref) => {
       {/* 顶部标题栏 — 用一个隐形 TVButton 作为焦点锚点 */}
       <View style={[s.topBar, { borderBottomColor: theme['c-border-background'] }]}>
         <TVButton ref={titleAreaRef} style={s.titleBtn} borderRadius={sr(6)} onPress={() => {}} onFocus={() => setFocusZone('topbar')}>
-          <Text size={sf(20)} color={theme['c-font']} style={s.topTitle}>{t('nav_love')}</Text>
+          <Text size={sf(24)} color={theme['c-font']} style={s.topTitle}>{t('nav_love')}</Text>
         </TVButton>
       </View>
 
@@ -301,10 +301,10 @@ const CardItem = memo(({
         onPress={() => { if (cardBtnRef.current) onOpen(listInfo, cardBtnRef.current) }}
         onFocus={() => setFocusZone('content')}
       >
-        <Text size={sf(14)} color={theme['c-primary']} style={s.cardLabel}>列表</Text>
+        <Text size={sf(18)} color={theme['c-primary']} style={s.cardLabel}>列表</Text>
       </TVButton>
       <View style={s.cardBottom}>
-        <Text style={s.cardName} size={sf(12)} color={theme['c-font']} numberOfLines={2}>
+        <Text style={s.cardName} size={sf(16)} color={theme['c-font']} numberOfLines={2}>
           {listInfo.name}
         </Text>
         <TVButton
@@ -314,7 +314,7 @@ const CardItem = memo(({
           onPress={() => { if (dotsBtnRef.current) onShowDots(listInfo, index, dotsBtnRef.current) }}
           onFocus={() => setFocusZone('content')}
         >
-          <Icon name="dots-vertical" size={sf(16)} color={theme['c-font-label']} />
+          <Icon name="dots-vertical" size={sf(20)} color={theme['c-font-label']} />
         </TVButton>
       </View>
     </View>
@@ -323,14 +323,14 @@ const CardItem = memo(({
 
 const s = StyleSheet.create({
   root: { flex: 1 },
-  topBar: { paddingHorizontal: sw(16), paddingVertical: sh(4), borderBottomWidth: StyleSheet.hairlineWidth, flexShrink: 0 },
+  topBar: { paddingHorizontal: sw(20), paddingVertical: sh(8), borderBottomWidth: StyleSheet.hairlineWidth, flexShrink: 0 },
   titleBtn: { alignSelf: 'flex-start', paddingHorizontal: sw(8), paddingVertical: sh(8), borderRadius: sr(6) },
   topTitle: { fontWeight: '600' },
-  gridContent: { paddingHorizontal: sw(16), paddingTop: sh(16), paddingBottom: sh(24) },
-  cardWrap: { flex: 1, alignItems: 'center', paddingHorizontal: sw(8), paddingBottom: sh(20) },
-  card: { width: '100%', aspectRatio: 1.2, borderRadius: sr(8), justifyContent: 'center', alignItems: 'center' },
+  gridContent: { paddingHorizontal: sw(24), paddingTop: sh(20), paddingBottom: sh(24) },
+  cardWrap: { flex: 1, alignItems: 'center', paddingHorizontal: sw(12), paddingBottom: sh(24) },
+  card: { width: '100%', aspectRatio: 1.2, borderRadius: sr(10), justifyContent: 'center', alignItems: 'center' },
   cardLabel: { fontWeight: '500' },
-  cardBottom: { flexDirection: 'row', alignItems: 'center', marginTop: sh(6), width: '100%' },
-  cardName: { flex: 1, lineHeight: sh(18) },
-  dotsBtn: { paddingHorizontal: sw(6), paddingVertical: sh(4), borderRadius: sr(6), flexShrink: 0 },
+  cardBottom: { flexDirection: 'row', alignItems: 'center', marginTop: sh(8), width: '100%' },
+  cardName: { flex: 1, lineHeight: sh(24) },
+  dotsBtn: { paddingHorizontal: sw(8), paddingVertical: sh(6), borderRadius: sr(6), flexShrink: 0 },
 })

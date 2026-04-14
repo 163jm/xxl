@@ -89,7 +89,7 @@ const Sidebar = memo(({ onExitPress, navBtnRefs, playBtnRef }: SidebarProps) => 
         <View style={[s.sidePic, { backgroundColor: theme['c-border-background'] }]}>
           {musicInfo.pic
             ? <Image url={musicInfo.pic} style={s.sidePicImg} />
-            : <Icon name={isPlay ? 'pause' : 'play'} size={sf(20)} color={theme['c-primary']} />
+            : <Icon name={isPlay ? 'pause' : 'play'} size={sf(26)} color={theme['c-primary']} />
           }
         </View>
       </TVButton>
@@ -112,7 +112,7 @@ const Sidebar = memo(({ onExitPress, navBtnRefs, playBtnRef }: SidebarProps) => 
               onPress={() => handleNav(menu.id)}
               onFocus={() => setFocusZone('sidebar')}
             >
-              <Icon name={iconName} size={sf(22)} color={active ? theme['c-primary'] : theme['c-font-label']} />
+              <Icon name={iconName} size={sf(28)} color={active ? theme['c-primary'] : theme['c-font-label']} />
             </TVButton>
           )
         })}
@@ -335,7 +335,7 @@ export default memo(() => {
   )
 })
 
-const SIDEBAR_W = sw(80)
+const SIDEBAR_W = sw(100)
 
 const s = StyleSheet.create({
   root:  { flex: 1, flexDirection: 'row' },
@@ -349,22 +349,22 @@ const s = StyleSheet.create({
   },
   sideBtn: {
     width: SIDEBAR_W,
-    paddingVertical: sh(10),
+    paddingVertical: sh(14),
     alignItems: 'center',
-    gap: sh(4),
+    gap: sh(6),
   },
   sideBtnActive: { borderLeftWidth: sw(3) },
   sidePic: {
-    width: sw(44),
-    height: sw(44),
-    borderRadius: sr(22),
+    width: sw(56),
+    height: sw(56),
+    borderRadius: sr(28),
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
   },
-  sidePicImg: { width: sw(44), height: sw(44), borderRadius: sr(22) },
+  sidePicImg: { width: sw(56), height: sw(56), borderRadius: sr(28) },
   navItems: { flex: 1, width: '100%', alignItems: 'center' },
-  divider: { width: sw(40), height: sh(1), marginVertical: sh(4) },
+  divider: { width: sw(60), height: sh(1), marginVertical: sh(6) },
   content: { flex: 1, position: 'relative' },
   panel:   { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
   hidden:  { display: 'none' },
