@@ -14,6 +14,7 @@ import songlistState, { type Source, type TagInfo } from '@/store/songlist/state
 import { getSongListSetting, saveSongListSetting } from '@/utils/data'
 import OpenList, { type OpenListType } from '@/screens/Home/Views/SongList/HeaderBar/OpenList'
 import { getTags } from '@/core/songlist'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 import { useI18n } from '@/lang'
 import { useSourceLabel } from '@/utils/hooks/useSourceLabel'
 import { setFocusZone } from '../index'
@@ -81,10 +82,10 @@ const FilterModal = memo(({ visible, onClose, onTagChange }: FilterModalProps) =
           </ScrollView>
           <View style={[m.divider, { backgroundColor: theme['c-border-background'] }]} />
           <View style={m.cancelRow}>
-            <TVButton borderRadius={6}
+            <TVButton borderRadius={sr(6)}
               style={[m.cancelBtn, { backgroundColor: theme['c-button-background'] }]}
               onPress={onClose}>
-              <Text size={14} color={theme['c-primary']}>{t('dialog_cancel')}</Text>
+              <Text size={sf(14)} color={theme['c-primary']}>{t('dialog_cancel')}</Text>
             </TVButton>
           </View>
         </View>
@@ -97,11 +98,11 @@ const m = StyleSheet.create({
   overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' },
   card: { width: '75%', maxHeight: '82%', borderRadius: 14, overflow: 'hidden', elevation: 10 },
   scroll: { flexGrow: 0 },
-  scrollContent: { paddingHorizontal: 20, paddingTop: 16, paddingBottom: 8 },
-  loading: { paddingVertical: 30, alignItems: 'center' },
-  divider: { height: StyleSheet.hairlineWidth, marginHorizontal: 20, marginTop: 4 },
-  cancelRow: { paddingHorizontal: 20, paddingTop: 10, paddingBottom: 14, alignItems: 'flex-end' },
-  cancelBtn: { paddingHorizontal: 28, paddingVertical: 12, minWidth: 100, alignItems: 'center', borderRadius: 6 },
+  scrollContent: { paddingHorizontal: sw(20), paddingTop: sh(16), paddingBottom: sh(8) },
+  loading: { paddingVertical: sh(30), alignItems: 'center' },
+  divider: { height: StyleSheet.hairlineWidth, marginHorizontal: sw(20), marginTop: sh(4) },
+  cancelRow: { paddingHorizontal: sw(20), paddingTop: sh(10), paddingBottom: sh(14), alignItems: 'flex-end' },
+  cancelBtn: { paddingHorizontal: sw(28), paddingVertical: sh(12), minWidth: sw(100), alignItems: 'center', borderRadius: sr(6) },
 })
 
 // ─── 主面板 ──────────────────────────────────────────────────────────────────
@@ -228,7 +229,7 @@ export default memo(forwardRef<TVSongListPanelType>((_, ref) => {
               onFocus={() => setFocusZone('topbar')}
               hasTVPreferredFocus={i === 0}
             >
-              <Text size={20} color={active ? primary : undefined}>{label}</Text>
+              <Text size={sf(20)} color={active ? primary : undefined}>{label}</Text>
             </TVButton>
           )
         })}
@@ -251,17 +252,17 @@ const s = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 8,
+    paddingHorizontal: sw(8),
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexShrink: 0,
   },
   sourceTab: {
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    borderRadius: 8,
-    borderBottomWidth: 3,
+    paddingVertical: sh(10),
+    paddingHorizontal: sw(14),
+    borderRadius: sr(8),
+    borderBottomWidth: sh(3),
     borderBottomColor: 'transparent',
   },
   spacer: { flex: 1 },
-  filterBtn: { padding: 10, borderRadius: 8 },
+  filterBtn: { padding: sw(10), borderRadius: sr(8) },
 })

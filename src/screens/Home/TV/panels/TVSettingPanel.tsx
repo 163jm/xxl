@@ -6,6 +6,7 @@ import Text from '@/components/common/Text'
 import Main, { SETTING_SCREENS, type SettingScreenIds, type MainType } from '@/screens/Home/Views/Setting/Main'
 import { useI18n } from '@/lang'
 import { setFocusZone } from '../index'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 export interface TVSettingPanelType {
   focusTopBar: () => void
@@ -52,7 +53,7 @@ export default memo(forwardRef<TVSettingPanelType>((_, ref) => {
                 onFocus={() => setFocusZone('topbar')}
                 hasTVPreferredFocus={id === focusTabId}
               >
-                <Text size={20} color={active ? theme['c-primary'] : undefined}>
+                <Text size={sf(20)} color={active ? theme['c-primary'] : undefined}>
                   {t(`setting_${id}`)}
                 </Text>
               </TVButton>
@@ -75,18 +76,18 @@ const s = StyleSheet.create({
   tabBar: { borderBottomWidth: StyleSheet.hairlineWidth, flexShrink: 0 },
   tabScroll: {
     flexDirection: 'row',
-    paddingHorizontal: 8,
-    paddingVertical: 6,
-    gap: 4,
+    paddingHorizontal: sw(8),
+    paddingVertical: sh(6),
+    gap: sw(4),
     alignItems: 'center',
   },
   tab: {
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    borderRadius: 8,
-    borderBottomWidth: 3,
+    paddingVertical: sh(8),
+    paddingHorizontal: sw(16),
+    borderRadius: sr(8),
+    borderBottomWidth: sh(3),
     borderBottomColor: 'transparent',
   },
   content: { flex: 1 },
-  contentInner: { paddingHorizontal: 20, paddingVertical: 15 },
+  contentInner: { paddingHorizontal: sw(20), paddingVertical: sh(15) },
 })

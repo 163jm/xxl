@@ -9,9 +9,10 @@ import { FlatList, View, StyleSheet } from 'react-native'
 
 import { useMyList } from '@/store/list/hook'
 import ListItem from './ListItem'
+import { sw, sh } from '@/utils/tvScale'
 
-const ITEM_HEIGHT = 52
-const ITEM_GAP = 8
+const ITEM_HEIGHT = sh(52)
+const ITEM_GAP = sh(8)
 const MAX_VISIBLE = 6
 
 export default ({ musicInfo, onPress }: {
@@ -55,11 +56,11 @@ const s = StyleSheet.create({
     flexGrow: 0,
   },
   content: {
-    paddingHorizontal: 20,
-    paddingTop: 8,
-    paddingBottom: 8,
+    paddingHorizontal: sw(20),
+    paddingTop: sh(8),
+    paddingBottom: sh(8),
   },
   itemWrap: {
-    marginBottom: 8,
+    marginBottom: sh(8),
   },
 })

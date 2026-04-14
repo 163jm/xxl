@@ -12,6 +12,7 @@ import { useTheme } from '@/store/theme/hook'
 import TVButton, { type TVButtonType } from '@/components/common/TVButton'
 import { scaleSizeH } from '@/utils/pixelRatio'
 import { LIST_ITEM_HEIGHT } from '@/config/constant'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 export const ITEM_HEIGHT = (scaleSizeH(LIST_ITEM_HEIGHT) * 1.15) || (LIST_ITEM_HEIGHT * 1.15)
 
@@ -73,7 +74,7 @@ export const MyListItem = forwardRef<TVListItemHandle, {
       <TVButton
         ref={mainRef}
         style={styles.main}
-        borderRadius={6}
+        borderRadius={sr(6)}
         lockHorizontal
         onDirection={dir => {
           if (dir === 'left') callbacks.onMainLeft()
@@ -83,15 +84,15 @@ export const MyListItem = forwardRef<TVListItemHandle, {
       >
         <View style={styles.inner}>
           {isActive
-            ? <Icon style={styles.sn} name="play-outline" size={14} color={theme['c-primary']} />
-            : <Text style={styles.sn} size={13} color={theme['c-300']}>{index + 1}</Text>
+            ? <Icon style={styles.sn} name="play-outline" size={sf(14)} color={theme['c-primary']} />
+            : <Text style={styles.sn} size={sf(13)} color={theme['c-300']}>{index + 1}</Text>
           }
           <View style={styles.nameWrap}>
-            <Text numberOfLines={1} size={15} color={isActive ? theme['c-primary'] : theme['c-font']}>
+            <Text numberOfLines={1} size={sf(15)} color={isActive ? theme['c-primary'] : theme['c-font']}>
               {item.name}
             </Text>
           </View>
-          <Text style={styles.singer} size={13} color={theme['c-500']} numberOfLines={1}>
+          <Text style={styles.singer} size={sf(13)} color={theme['c-500']} numberOfLines={1}>
             {item.singer}
           </Text>
         </View>
@@ -101,7 +102,7 @@ export const MyListItem = forwardRef<TVListItemHandle, {
       <TVButton
         ref={moreRef}
         style={styles.more}
-        borderRadius={6}
+        borderRadius={sr(6)}
         lockHorizontal
         onDirection={dir => {
           if (dir === 'left') mainRef.current?.requestFocus()
@@ -109,7 +110,7 @@ export const MyListItem = forwardRef<TVListItemHandle, {
         }}
         onPress={handleShowMenu}
       >
-        <Icon name="dots-vertical" size={14} color={theme['c-350']} />
+        <Icon name="dots-vertical" size={sf(14)} color={theme['c-350']} />
       </TVButton>
     </View>
   )
@@ -144,7 +145,7 @@ const TVListItem = forwardRef<TVListItemHandle, {
       <TVButton
         ref={mainRef}
         style={styles.main}
-        borderRadius={6}
+        borderRadius={sr(6)}
         lockHorizontal
         onDirection={dir => {
           if (dir === 'left') callbacks.onMainLeft()
@@ -153,12 +154,12 @@ const TVListItem = forwardRef<TVListItemHandle, {
         onPress={() => onPress(item, index)}
       >
         <View style={styles.inner}>
-          <Text style={styles.sn} size={13} color={theme['c-300']}>{index + 1}</Text>
+          <Text style={styles.sn} size={sf(13)} color={theme['c-300']}>{index + 1}</Text>
           <View style={styles.nameWrap}>
-            <Text numberOfLines={1} size={15} color={theme['c-font']}>{item.name}</Text>
+            <Text numberOfLines={1} size={sf(15)} color={theme['c-font']}>{item.name}</Text>
           </View>
           {qualityTag.type ? <Badge type={qualityTag.type}>{qualityTag.text}</Badge> : null}
-          <Text style={styles.singer} size={13} color={theme['c-500']} numberOfLines={1}>
+          <Text style={styles.singer} size={sf(13)} color={theme['c-500']} numberOfLines={1}>
             {item.singer}
           </Text>
         </View>
@@ -167,7 +168,7 @@ const TVListItem = forwardRef<TVListItemHandle, {
       <TVButton
         ref={moreRef}
         style={styles.more}
-        borderRadius={6}
+        borderRadius={sr(6)}
         lockHorizontal
         onDirection={dir => {
           if (dir === 'left') mainRef.current?.requestFocus()
@@ -175,7 +176,7 @@ const TVListItem = forwardRef<TVListItemHandle, {
         }}
         onPress={handleShowMenu}
       >
-        <Icon name="dots-vertical" size={14} color={theme['c-350']} />
+        <Icon name="dots-vertical" size={sf(14)} color={theme['c-350']} />
       </TVButton>
     </View>
   )
@@ -187,7 +188,7 @@ const styles = StyleSheet.create({
   row: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingRight: 2,
+    paddingRight: sw(2),
   },
   main: {
     flex: 1,
@@ -198,26 +199,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: '100%',
-    paddingHorizontal: 4,
+    paddingHorizontal: sw(4),
   },
   sn: {
-    width: 44,
+    width: sw(44),
     textAlign: 'center',
   },
   nameWrap: {
     flex: 1,
     flexShrink: 1,
-    paddingRight: 6,
+    paddingRight: sw(6),
   },
   singer: {
     flexShrink: 0,
     maxWidth: '30%',
     textAlign: 'right',
-    paddingRight: 8,
+    paddingRight: sw(8),
   },
   more: {
     height: '80%',
-    paddingHorizontal: 16,
+    paddingHorizontal: sw(16),
     justifyContent: 'center',
   },
 })

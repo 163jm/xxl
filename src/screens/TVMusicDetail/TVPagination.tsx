@@ -6,6 +6,7 @@ import { View, StyleSheet } from 'react-native'
 import TVButton from '@/components/common/TVButton'
 import Text from '@/components/common/Text'
 import { useTheme } from '@/store/theme/hook'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 interface Props {
   page: number        // 当前页（1-based）
@@ -23,24 +24,24 @@ export default memo(({ page, maxPage, onPrev, onNext }: Props) => {
     <View style={styles.root}>
       <TVButton
         style={styles.btn}
-        borderRadius={6}
+        borderRadius={sr(6)}
         onPress={onPrev}
         disabled={!canPrev}
       >
-        <Text size={20} color={canPrev ? theme['c-font'] : theme['c-font-label']}>{'‹'}</Text>
+        <Text size={sf(20)} color={canPrev ? theme['c-font'] : theme['c-font-label']}>{'‹'}</Text>
       </TVButton>
 
-      <Text style={styles.pageText} size={15} color={theme['c-font']}>
+      <Text style={styles.pageText} size={sf(15)} color={theme['c-font']}>
         {page}
       </Text>
 
       <TVButton
         style={styles.btn}
-        borderRadius={6}
+        borderRadius={sr(6)}
         onPress={onNext}
         disabled={!canNext}
       >
-        <Text size={20} color={canNext ? theme['c-font'] : theme['c-font-label']}>{'›'}</Text>
+        <Text size={sf(20)} color={canNext ? theme['c-font'] : theme['c-font-label']}>{'›'}</Text>
       </TVButton>
     </View>
   )
@@ -51,19 +52,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    paddingVertical: 10,
-    gap: 16,
+    paddingVertical: sh(10),
+    gap: sw(16),
     flexShrink: 0,
   },
   btn: {
-    paddingHorizontal: 20,
-    paddingVertical: 8,
-    borderRadius: 6,
-    minWidth: 48,
+    paddingHorizontal: sw(20),
+    paddingVertical: sh(8),
+    borderRadius: sr(6),
+    minWidth: sw(48),
     alignItems: 'center',
   },
   pageText: {
-    minWidth: 32,
+    minWidth: sw(32),
     textAlign: 'center',
   },
 })

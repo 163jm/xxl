@@ -22,6 +22,7 @@ import DuplicateMusic, { type DuplicateMusicType } from '@/screens/Home/Views/My
 import ListImportExport, { type ListImportExportType } from '@/screens/Home/Views/Mylist/MyList/ListImportExport'
 import { useI18n } from '@/lang'
 import { setFocusZone } from '../index'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 const NUM_COLUMNS = 5
 
@@ -64,7 +65,7 @@ const ActionDialog = memo(({
                   style={[d.actionBtn, { backgroundColor: theme['c-button-background'] }]}
                   onPress={() => onAction(item.action)}
                 >
-                  <Text size={15}
+                  <Text size={sf(15)}
                     color={item.disabled ? theme['c-font-label'] : item.danger ? theme['c-primary'] : theme['c-button-font']}>
                     {item.label}
                   </Text>
@@ -74,10 +75,10 @@ const ActionDialog = memo(({
           />
           <View style={[d.divider, { backgroundColor: theme['c-border-background'] }]} />
           <View style={d.cancelRow}>
-            <TVButton borderRadius={6}
+            <TVButton borderRadius={sr(6)}
               style={[d.cancelBtn, { backgroundColor: theme['c-button-background'] }]}
               onPress={onClose}>
-              <Text size={14} color={theme['c-primary']}>取消</Text>
+              <Text size={sf(14)} color={theme['c-primary']}>取消</Text>
             </TVButton>
           </View>
         </View>
@@ -88,14 +89,14 @@ const ActionDialog = memo(({
 
 const d = StyleSheet.create({
   overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' },
-  card: { width: 260, maxHeight: 520, borderRadius: 12, overflow: 'hidden', elevation: 10 },
+  card: { width: sw(260), maxHeight: sh(520), borderRadius: sr(12), overflow: 'hidden', elevation: 10 },
   list: { flexGrow: 0 },
-  listContent: { paddingHorizontal: 14, paddingTop: 14, paddingBottom: 6 },
-  itemWrap: { marginBottom: 6 },
-  actionBtn: { height: 48, justifyContent: 'center', alignItems: 'center', borderRadius: 6 },
-  divider: { height: StyleSheet.hairlineWidth, marginHorizontal: 14, marginTop: 2 },
-  cancelRow: { paddingHorizontal: 14, paddingTop: 10, paddingBottom: 14, alignItems: 'flex-end' },
-  cancelBtn: { paddingHorizontal: 20, paddingVertical: 10, minWidth: 80, alignItems: 'center', borderRadius: 6 },
+  listContent: { paddingHorizontal: sw(14), paddingTop: sh(14), paddingBottom: sh(6) },
+  itemWrap: { marginBottom: sh(6) },
+  actionBtn: { height: sh(48), justifyContent: 'center', alignItems: 'center', borderRadius: sr(6) },
+  divider: { height: StyleSheet.hairlineWidth, marginHorizontal: sw(14), marginTop: sh(2) },
+  cancelRow: { paddingHorizontal: sw(14), paddingTop: sh(10), paddingBottom: sh(14), alignItems: 'flex-end' },
+  cancelBtn: { paddingHorizontal: sw(20), paddingVertical: sh(10), minWidth: sw(80), alignItems: 'center', borderRadius: sr(6) },
 })
 
 // ─── 对外接口 ────────────────────────────────────────────────────────────────
@@ -234,8 +235,8 @@ export default memo(forwardRef<TVMyListGridPanelType>((_, ref) => {
     <View style={s.root}>
       {/* 顶部标题栏 — 用一个隐形 TVButton 作为焦点锚点 */}
       <View style={[s.topBar, { borderBottomColor: theme['c-border-background'] }]}>
-        <TVButton ref={titleAreaRef} style={s.titleBtn} borderRadius={6} onPress={() => {}} onFocus={() => setFocusZone('topbar')}>
-          <Text size={20} color={theme['c-font']} style={s.topTitle}>{t('nav_love')}</Text>
+        <TVButton ref={titleAreaRef} style={s.titleBtn} borderRadius={sr(6)} onPress={() => {}} onFocus={() => setFocusZone('topbar')}>
+          <Text size={sf(20)} color={theme['c-font']} style={s.topTitle}>{t('nav_love')}</Text>
         </TVButton>
       </View>
 
@@ -296,24 +297,24 @@ const CardItem = memo(({
       <TVButton
         ref={cardBtnRef}
         style={[s.card, { backgroundColor: theme['c-primary-background'] }]}
-        borderRadius={8}
+        borderRadius={sr(8)}
         onPress={() => { if (cardBtnRef.current) onOpen(listInfo, cardBtnRef.current) }}
         onFocus={() => setFocusZone('content')}
       >
-        <Text size={14} color={theme['c-primary']} style={s.cardLabel}>列表</Text>
+        <Text size={sf(14)} color={theme['c-primary']} style={s.cardLabel}>列表</Text>
       </TVButton>
       <View style={s.cardBottom}>
-        <Text style={s.cardName} size={12} color={theme['c-font']} numberOfLines={2}>
+        <Text style={s.cardName} size={sf(12)} color={theme['c-font']} numberOfLines={2}>
           {listInfo.name}
         </Text>
         <TVButton
           ref={dotsBtnRef}
           style={s.dotsBtn}
-          borderRadius={6}
+          borderRadius={sr(6)}
           onPress={() => { if (dotsBtnRef.current) onShowDots(listInfo, index, dotsBtnRef.current) }}
           onFocus={() => setFocusZone('content')}
         >
-          <Icon name="dots-vertical" size={16} color={theme['c-font-label']} />
+          <Icon name="dots-vertical" size={sf(16)} color={theme['c-font-label']} />
         </TVButton>
       </View>
     </View>
@@ -322,14 +323,14 @@ const CardItem = memo(({
 
 const s = StyleSheet.create({
   root: { flex: 1 },
-  topBar: { paddingHorizontal: 16, paddingVertical: 4, borderBottomWidth: StyleSheet.hairlineWidth, flexShrink: 0 },
-  titleBtn: { alignSelf: 'flex-start', paddingHorizontal: 8, paddingVertical: 8, borderRadius: 6 },
+  topBar: { paddingHorizontal: sw(16), paddingVertical: sh(4), borderBottomWidth: StyleSheet.hairlineWidth, flexShrink: 0 },
+  titleBtn: { alignSelf: 'flex-start', paddingHorizontal: sw(8), paddingVertical: sh(8), borderRadius: sr(6) },
   topTitle: { fontWeight: '600' },
-  gridContent: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 24 },
-  cardWrap: { flex: 1, alignItems: 'center', paddingHorizontal: 8, paddingBottom: 20 },
-  card: { width: '100%', aspectRatio: 1.2, borderRadius: 8, justifyContent: 'center', alignItems: 'center' },
+  gridContent: { paddingHorizontal: sw(16), paddingTop: sh(16), paddingBottom: sh(24) },
+  cardWrap: { flex: 1, alignItems: 'center', paddingHorizontal: sw(8), paddingBottom: sh(20) },
+  card: { width: '100%', aspectRatio: 1.2, borderRadius: sr(8), justifyContent: 'center', alignItems: 'center' },
   cardLabel: { fontWeight: '500' },
-  cardBottom: { flexDirection: 'row', alignItems: 'center', marginTop: 6, width: '100%' },
-  cardName: { flex: 1, lineHeight: 18 },
-  dotsBtn: { paddingHorizontal: 6, paddingVertical: 4, borderRadius: 6, flexShrink: 0 },
+  cardBottom: { flexDirection: 'row', alignItems: 'center', marginTop: sh(6), width: '100%' },
+  cardName: { flex: 1, lineHeight: sh(18) },
+  dotsBtn: { paddingHorizontal: sw(6), paddingVertical: sh(4), borderRadius: sr(6), flexShrink: 0 },
 })

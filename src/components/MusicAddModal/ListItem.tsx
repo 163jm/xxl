@@ -10,6 +10,7 @@ import Text from '@/components/common/Text'
 import { toast } from '@/utils/tools'
 import { useTheme } from '@/store/theme/hook'
 import { useMusicExistsList } from '@/store/list/hook'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 export default ({
   listInfo,
@@ -45,9 +46,9 @@ export default ({
       ]}
       onPress={handlePress}
       hasTVPreferredFocus={hasTVPreferredFocus}
-      borderRadius={8}
+      borderRadius={sr(8)}
     >
-      <Text numberOfLines={1} size={15} color={theme['c-button-font']}>{listInfo.name}</Text>
+      <Text numberOfLines={1} size={sf(15)} color={theme['c-button-font']}>{listInfo.name}</Text>
     </TVButton>
   )
 }
@@ -60,12 +61,12 @@ export const styles = StyleSheet.create({
 
 const s = StyleSheet.create({
   btn: {
-    height: 52,
+    height: sh(52),
     width: '100%',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: sr(8),
     justifyContent: 'center',
     alignItems: 'center',
-    paddingHorizontal: 16,
+    paddingHorizontal: sw(16),
   },
 })

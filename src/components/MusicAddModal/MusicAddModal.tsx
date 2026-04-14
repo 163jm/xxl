@@ -19,6 +19,7 @@ import { toast } from '@/utils/tools'
 import { addListMusics, moveListMusics } from '@/core/list'
 import settingState from '@/store/setting/state'
 import List from './List'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 export interface SelectInfo {
   musicInfo: LX.Music.MusicInfo | null
@@ -102,9 +103,9 @@ export default forwardRef<MusicAddModalType, MusicAddModalProps>(({ onAdded }, r
           <View style={[s.header, { borderBottomColor: theme['c-border-background'] }]}>
             {selectInfo.musicInfo
               ? (
-                  <Text size={15} numberOfLines={1} style={s.titleText}>
+                  <Text size={sf(15)} numberOfLines={1} style={s.titleText}>
                     {t(selectInfo.isMove ? 'list_add_title_first_move' : 'list_add_title_first_add')}{' '}
-                    <Text size={15} color={theme['c-primary']} numberOfLines={1}>{selectInfo.musicInfo.name}</Text>{' '}
+                    <Text size={sf(15)} color={theme['c-primary']} numberOfLines={1}>{selectInfo.musicInfo.name}</Text>{' '}
                     {t('list_add_title_last')}
                   </Text>
                 )
@@ -129,11 +130,11 @@ export default forwardRef<MusicAddModalType, MusicAddModalProps>(({ onAdded }, r
           {/* 取消 */}
           <View style={s.footerWrap}>
             <TVButton
-              borderRadius={6}
+              borderRadius={sr(6)}
               style={[s.cancelBtn, { backgroundColor: theme['c-button-background'] }]}
               onPress={hide}
             >
-              <Text size={14} color={theme['c-primary']}>{t('dialog_cancel')}</Text>
+              <Text size={sf(14)} color={theme['c-primary']}>{t('dialog_cancel')}</Text>
             </TVButton>
           </View>
 
@@ -150,16 +151,16 @@ const s = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    width: 380,
-    borderRadius: 12,
+    width: sw(380),
+    borderRadius: sr(12),
     overflow: 'hidden',
     elevation: 10,
     paddingTop: 0,
     paddingBottom: 0,
   },
   header: {
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    paddingHorizontal: sw(20),
+    paddingVertical: sh(16),
     borderBottomWidth: StyleSheet.hairlineWidth,
   },
   titleText: {
@@ -167,20 +168,20 @@ const s = StyleSheet.create({
   },
   divider: {
     height: StyleSheet.hairlineWidth,
-    marginHorizontal: 20,
-    marginTop: 4,
+    marginHorizontal: sw(20),
+    marginTop: sh(4),
   },
   footerWrap: {
-    paddingHorizontal: 20,
-    paddingTop: 10,
-    paddingBottom: 14,
+    paddingHorizontal: sw(20),
+    paddingTop: sh(10),
+    paddingBottom: sh(14),
     alignItems: 'flex-end',
   },
   cancelBtn: {
-    paddingHorizontal: 28,
-    paddingVertical: 12,
-    minWidth: 100,
+    paddingHorizontal: sw(28),
+    paddingVertical: sh(12),
+    minWidth: sw(100),
     alignItems: 'center',
-    borderRadius: 6,
+    borderRadius: sr(6),
   },
 })

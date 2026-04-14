@@ -16,6 +16,7 @@ import { navigations } from '@/navigation'
 import commonState from '@/store/common/state'
 import { getLeaderboardSetting, saveLeaderboardSetting } from '@/utils/data'
 import { setFocusZone } from '../index'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 const NUM_COLUMNS = 5
 
@@ -103,7 +104,7 @@ export default memo(forwardRef<TVLeaderboardGridPanelType>((_, ref) => {
               onFocus={() => setFocusZone('topbar')}
               hasTVPreferredFocus={i === 0}
             >
-              <Text size={18} color={active ? theme['c-primary'] : undefined}>{label}</Text>
+              <Text size={sf(18)} color={active ? theme['c-primary'] : undefined}>{label}</Text>
             </TVButton>
           )
         })}
@@ -136,13 +137,13 @@ const BoardCard = memo(({ item, theme, onOpen }: {
       <TVButton
         ref={btnRef}
         style={[s.card, { backgroundColor: theme['c-primary-background'] }]}
-        borderRadius={8}
+        borderRadius={sr(8)}
         onPress={() => { if (btnRef.current) onOpen(item, btnRef.current) }}
         onFocus={() => setFocusZone('content')}
       >
-        <Text size={14} color={theme['c-primary']} style={s.cardLabel}>排行榜</Text>
+        <Text size={sf(14)} color={theme['c-primary']} style={s.cardLabel}>排行榜</Text>
       </TVButton>
-      <Text style={s.cardName} size={12} color={theme['c-font']} numberOfLines={2}>{item.name}</Text>
+      <Text style={s.cardName} size={sf(12)} color={theme['c-font']} numberOfLines={2}>{item.name}</Text>
     </View>
   )
 })
@@ -152,21 +153,21 @@ const s = StyleSheet.create({
   tabBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: sw(8),
+    paddingVertical: sh(4),
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexShrink: 0,
   },
   tab: {
-    paddingVertical: 10,
-    paddingHorizontal: 14,
-    borderRadius: 8,
-    borderBottomWidth: 3,
+    paddingVertical: sh(10),
+    paddingHorizontal: sw(14),
+    borderRadius: sr(8),
+    borderBottomWidth: sh(3),
     borderBottomColor: 'transparent',
   },
-  gridContent: { paddingHorizontal: 16, paddingTop: 16, paddingBottom: 24 },
-  cardWrap: { flex: 1, alignItems: 'center', paddingHorizontal: 8, paddingBottom: 20 },
-  card: { width: '100%', aspectRatio: 1.2, borderRadius: 8, justifyContent: 'center', alignItems: 'center' },
+  gridContent: { paddingHorizontal: sw(16), paddingTop: sh(16), paddingBottom: sh(24) },
+  cardWrap: { flex: 1, alignItems: 'center', paddingHorizontal: sw(8), paddingBottom: sh(20) },
+  card: { width: '100%', aspectRatio: 1.2, borderRadius: sr(8), justifyContent: 'center', alignItems: 'center' },
   cardLabel: { fontWeight: '500' },
-  cardName: { marginTop: 6, textAlign: 'center', lineHeight: 18 },
+  cardName: { marginTop: sh(6), textAlign: 'center', lineHeight: sh(18) },
 })

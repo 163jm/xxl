@@ -5,6 +5,7 @@ import { confirmDialog, createStyle } from '@/utils/tools'
 import { useI18n } from '@/lang'
 import { createUserList } from '@/core/list'
 import listState from '@/store/list/state'
+import { sf, sr } from '@/utils/tvScale'
 
 export default ({ isEdit, onHide }: {
   isEdit: boolean
@@ -61,8 +62,8 @@ const styles = createStyle({
   },
   input: {
     flex: 1,
-    fontSize: 14,
-    borderRadius: 4,
+    fontSize: sf(14),
+    borderRadius: sr(4),
     textAlign: 'center',
     height: '100%',
   },

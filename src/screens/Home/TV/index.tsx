@@ -22,6 +22,7 @@ import { useBackHandler } from '@/utils/hooks/useBackHandler'
 import { navigations } from '@/navigation'
 import commonState from '@/store/common/state'
 import { NAV_MENUS } from '@/config/constant'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 import type { InitState } from '@/store/common/state'
 
 import TVSearchPanel, { type TVSearchPanelType } from './panels/TVSearchPanel'
@@ -88,7 +89,7 @@ const Sidebar = memo(({ onExitPress, navBtnRefs, playBtnRef }: SidebarProps) => 
         <View style={[s.sidePic, { backgroundColor: theme['c-border-background'] }]}>
           {musicInfo.pic
             ? <Image url={musicInfo.pic} style={s.sidePicImg} />
-            : <Icon name={isPlay ? 'pause' : 'play'} size={20} color={theme['c-primary']} />
+            : <Icon name={isPlay ? 'pause' : 'play'} size={sf(20)} color={theme['c-primary']} />
           }
         </View>
       </TVButton>
@@ -111,7 +112,7 @@ const Sidebar = memo(({ onExitPress, navBtnRefs, playBtnRef }: SidebarProps) => 
               onPress={() => handleNav(menu.id)}
               onFocus={() => setFocusZone('sidebar')}
             >
-              <Icon name={iconName} size={22} color={active ? theme['c-primary'] : theme['c-font-label']} />
+              <Icon name={iconName} size={sf(22)} color={active ? theme['c-primary'] : theme['c-font-label']} />
             </TVButton>
           )
         })}
@@ -334,7 +335,7 @@ export default memo(() => {
   )
 })
 
-const SIDEBAR_W = 80
+const SIDEBAR_W = sw(80)
 
 const s = StyleSheet.create({
   root:  { flex: 1, flexDirection: 'row' },
@@ -344,26 +345,26 @@ const s = StyleSheet.create({
     flexShrink: 0,
     borderRightWidth: StyleSheet.hairlineWidth,
     alignItems: 'center',
-    paddingBottom: 10,
+    paddingBottom: sh(10),
   },
   sideBtn: {
     width: SIDEBAR_W,
-    paddingVertical: 10,
+    paddingVertical: sh(10),
     alignItems: 'center',
-    gap: 4,
+    gap: sh(4),
   },
-  sideBtnActive: { borderLeftWidth: 3 },
+  sideBtnActive: { borderLeftWidth: sw(3) },
   sidePic: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
+    width: sw(44),
+    height: sw(44),
+    borderRadius: sr(22),
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
   },
-  sidePicImg: { width: 44, height: 44, borderRadius: 22 },
+  sidePicImg: { width: sw(44), height: sw(44), borderRadius: sr(22) },
   navItems: { flex: 1, width: '100%', alignItems: 'center' },
-  divider: { width: 40, height: 1, marginVertical: 4 },
+  divider: { width: sw(40), height: sh(1), marginVertical: sh(4) },
   content: { flex: 1, position: 'relative' },
   panel:   { position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 },
   hidden:  { display: 'none' },

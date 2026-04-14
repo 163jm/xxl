@@ -11,6 +11,7 @@ import TVButton from './TVButton'
 import Text from './Text'
 import { useTheme } from '@/store/theme/hook'
 import { useI18n } from '@/lang'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 export interface TVExitDialogType {
   show: (onConfirm: () => void) => void
@@ -51,7 +52,7 @@ export default forwardRef<TVExitDialogType>((_, ref) => {
 
           {/* 标题栏：背景与底层背景保持一致，文字为主体色 */}
           <View style={[s.header, { backgroundColor: theme['c-content-background'] }]}>
-            <Text size={16} color={theme['c-primary']}>
+            <Text size={sf(16)} color={theme['c-primary']}>
               {t('exit_app_tip')}
             </Text>
           </View>
@@ -63,10 +64,10 @@ export default forwardRef<TVExitDialogType>((_, ref) => {
             <TVButton
               hasTVPreferredFocus
               onPress={handleCancel}
-              borderRadius={6}
+              borderRadius={sr(6)}
               style={[s.btn, { backgroundColor: theme['c-button-background'] }]}
             >
-              <Text size={14} color={theme['c-button-font']}>
+              <Text size={sf(14)} color={theme['c-button-font']}>
                 {t('dialog_cancel')}
               </Text>
             </TVButton>
@@ -74,10 +75,10 @@ export default forwardRef<TVExitDialogType>((_, ref) => {
             {/* 确认退出：背景与取消按钮一致，文字为主体色 */}
             <TVButton
               onPress={handleConfirm}
-              borderRadius={6}
+              borderRadius={sr(6)}
               style={[s.btn, { backgroundColor: theme['c-button-background'] }]}
             >
-              <Text size={14} color={theme['c-primary']}>
+              <Text size={sf(14)} color={theme['c-primary']}>
                 {t('list_remove_tip_button')}
               </Text>
             </TVButton>
@@ -96,26 +97,26 @@ const s = StyleSheet.create({
     alignItems: 'center',
   },
   card: {
-    width: 400,
-    borderRadius: 10,
+    width: sw(400),
+    borderRadius: sr(10),
     overflow: 'hidden',
     elevation: 8,
   },
   header: {
-    paddingHorizontal: 24,
-    paddingVertical: 22,
+    paddingHorizontal: sw(24),
+    paddingVertical: sh(22),
   },
   btnRow: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    gap: 12,
-    paddingHorizontal: 20,
-    paddingVertical: 16,
+    gap: sw(12),
+    paddingHorizontal: sw(20),
+    paddingVertical: sh(16),
   },
   btn: {
-    paddingHorizontal: 24,
-    paddingVertical: 10,
-    minWidth: 100,
+    paddingHorizontal: sw(24),
+    paddingVertical: sh(10),
+    minWidth: sw(100),
     alignItems: 'center',
   },
 })

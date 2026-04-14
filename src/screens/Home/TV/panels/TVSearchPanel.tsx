@@ -18,6 +18,7 @@ import { getSearchSetting, saveSearchSetting } from '@/utils/data'
 import type { Source } from '@/store/search/music/state'
 import { useSourceLabel } from '@/utils/hooks/useSourceLabel'
 import { setFocusZone } from '../index'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 // 字母 + 数字按顺序排列，每行6个
 const ALL_KEYS = [
@@ -132,8 +133,8 @@ export default memo(forwardRef<TVSearchPanelType>((_, ref) => {
         <View style={s.keyboard}>
           {/* 输入显示框 */}
           <View style={[s.inputBox, { backgroundColor: bg, borderColor: border }]}>
-            <Icon name="search-2" size={16} color={theme['c-font-label']} />
-            <Text size={18} style={s.inputText} numberOfLines={1}>
+            <Icon name="search-2" size={sf(16)} color={theme['c-font-label']} />
+            <Text size={sf(18)} style={s.inputText} numberOfLines={1}>
               {input || '请用遥控器按字母输入...'}
             </Text>
           </View>
@@ -148,7 +149,7 @@ export default memo(forwardRef<TVSearchPanelType>((_, ref) => {
                   style={[s.sourceTab, active && { borderBottomColor: primary }]}
                   onPress={() => handleSelectSource(src)}
                   onFocus={() => setFocusZone('topbar')}>
-                  <Text size={15} color={active ? primary : undefined}>{label}</Text>
+                  <Text size={sf(15)} color={active ? primary : undefined}>{label}</Text>
                 </TVButton>
               )
             })}
@@ -166,7 +167,7 @@ export default memo(forwardRef<TVSearchPanelType>((_, ref) => {
                   onFocus={() => setFocusZone('topbar')}
                   hasTVPreferredFocus={ri === 0 && ci === 0}
                 >
-                  <Text size={20} style={s.keyText}>{ch}</Text>
+                  <Text size={sf(20)} style={s.keyText}>{ch}</Text>
                 </TVButton>
               ))}
             </View>
@@ -175,17 +176,17 @@ export default memo(forwardRef<TVSearchPanelType>((_, ref) => {
           {/* 删除 + 清空 */}
           <View style={[s.keyRow, { marginTop: 4 }]}>
             <TVButton style={[s.keyHalf, { backgroundColor: bg, borderColor: border, borderWidth: 1 }]} onPress={backspace} onFocus={() => setFocusZone('topbar')}>
-              <Text size={16}>删除</Text>
+              <Text size={sf(16)}>删除</Text>
             </TVButton>
             <TVButton style={[s.keyHalf, { backgroundColor: bg, borderColor: border, borderWidth: 1 }]} onPress={clear} onFocus={() => setFocusZone('topbar')}>
-              <Text size={16}>清空</Text>
+              <Text size={sf(16)}>清空</Text>
             </TVButton>
           </View>
 
           {/* 搜索 */}
           <View style={s.keyRow}>
             <TVButton style={[s.keyFull, { backgroundColor: bg, borderColor: primary, borderWidth: 1.5 }]} onPress={doSearch} onFocus={() => setFocusZone('topbar')}>
-              <Text size={18} color={primary} style={{ fontWeight: '600' }}>搜 索</Text>
+              <Text size={sf(18)} color={primary} style={{ fontWeight: '600' }}>搜 索</Text>
             </TVButton>
           </View>
         </View>
@@ -200,28 +201,28 @@ export default memo(forwardRef<TVSearchPanelType>((_, ref) => {
   )
 }))
 
-const KEY_H = 54
+const KEY_H = sh(54)
 
 const s = StyleSheet.create({
   root: { flex: 1, flexDirection: 'row' },
   keyboardWrap: {
-    width: 460,
+    width: sw(460),
     flexShrink: 0,
     borderRightWidth: StyleSheet.hairlineWidth,
     justifyContent: 'flex-start',
-    paddingHorizontal: 14,
-    paddingTop: 16,
+    paddingHorizontal: sw(14),
+    paddingTop: sh(16),
   },
-  keyboard: { gap: 7 },
+  keyboard: { gap: sh(7) },
   inputBox: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    paddingHorizontal: 14,
-    height: 54,
+    gap: sw(8),
+    paddingHorizontal: sw(14),
+    height: sh(54),
     borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 4,
+    borderRadius: sr(10),
+    marginBottom: sh(4),
   },
   inputText: { flex: 1 },
   sourceBar: {
@@ -229,23 +230,23 @@ const s = StyleSheet.create({
     alignItems: 'center',
     flexWrap: 'wrap',
     borderWidth: StyleSheet.hairlineWidth,
-    borderRadius: 10,
-    paddingHorizontal: 6,
-    paddingVertical: 4,
-    gap: 2,
-    marginBottom: 4,
+    borderRadius: sr(10),
+    paddingHorizontal: sw(6),
+    paddingVertical: sh(4),
+    gap: sw(2),
+    marginBottom: sh(4),
   },
   sourceTab: {
-    paddingVertical: 7,
-    paddingHorizontal: 12,
-    borderRadius: 8,
-    borderBottomWidth: 2,
+    paddingVertical: sh(7),
+    paddingHorizontal: sw(12),
+    borderRadius: sr(8),
+    borderBottomWidth: sh(2),
     borderBottomColor: 'transparent',
   },
-  keyRow: { flexDirection: 'row', gap: 5 },
-  key: { flex: 1, height: KEY_H, borderRadius: 8, justifyContent: 'center', alignItems: 'center' },
-  keyHalf: { flex: 1, height: KEY_H, borderRadius: 8, justifyContent: 'center', alignItems: 'center' },
-  keyFull: { flex: 1, height: KEY_H, borderRadius: 8, justifyContent: 'center', alignItems: 'center' },
+  keyRow: { flexDirection: 'row', gap: sw(5) },
+  key: { flex: 1, height: KEY_H, borderRadius: sr(8), justifyContent: 'center', alignItems: 'center' },
+  keyHalf: { flex: 1, height: KEY_H, borderRadius: sr(8), justifyContent: 'center', alignItems: 'center' },
+  keyFull: { flex: 1, height: KEY_H, borderRadius: sr(8), justifyContent: 'center', alignItems: 'center' },
   keyText: { textTransform: 'uppercase' },
   results: { flex: 1 },
 })

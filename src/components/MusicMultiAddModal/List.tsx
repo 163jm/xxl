@@ -10,12 +10,13 @@ import { useTheme } from '@/store/theme/hook'
 import { useI18n } from '@/lang'
 import { createStyle } from '@/utils/tools'
 import { scaleSizeW } from '@/utils/pixelRatio'
+import { sw, sh, sf } from '@/utils/tvScale'
 
 const styles = createStyle({
   list: {
-    paddingLeft: 15,
-    paddingRight: 2,
-    paddingBottom: 5,
+    paddingLeft: sw(15),
+    paddingRight: sw(2),
+    paddingBottom: sh(5),
     flexDirection: 'row',
     flexWrap: 'wrap',
     // backgroundColor: 'rgba(0,0,0,0.2)'
@@ -38,7 +39,7 @@ const EditListItem = ({ itemWidth }: {
         underlayColor={theme['c-primary-alpha-100'] ?? 'rgba(77,175,124,0.9)'}
         onPress={() => { setEdit(true) }}
       >
-        <Text style={{ opacity: isEdit ? 0 : 1 }} numberOfLines={1} size={14} color={theme['c-button-font']}>{t('list_create')}</Text>
+        <Text style={{ opacity: isEdit ? 0 : 1 }} numberOfLines={1} size={sf(14)} color={theme['c-button-font']}>{t('list_create')}</Text>
       </TouchableHighlight>
       {
         isEdit

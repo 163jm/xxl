@@ -26,6 +26,7 @@ import { type TVMusicDetailParams } from '@/navigation/navigation'
 import LeaderboardContent, { type LeaderboardContentType } from './content/LeaderboardContent'
 import SonglistContent, { type SonglistContentType } from './content/SonglistContent'
 import MylistContent, { type MylistContentType } from './content/MylistContent'
+import { sw, sh, sf, sr } from '@/utils/tvScale'
 
 type ContentRef = LeaderboardContentType | SonglistContentType | MylistContentType
 
@@ -66,24 +67,24 @@ export default ({ componentId, params }: { componentId: string; params: TVMusicD
       <View style={[styles.root, { paddingTop: statusBarHeight }]}>
         {/* 顶部栏 */}
         <View style={[styles.topBar, { borderBottomColor: theme['c-border-background'] }]}>
-          <Text style={styles.title} size={20} numberOfLines={1} color={theme['c-font']}>
+          <Text style={styles.title} size={sf(20)} numberOfLines={1} color={theme['c-font']}>
             {params.name}
           </Text>
           <View style={styles.actions}>
             {/* 收藏（仅歌单） */}
             {params.type === 'songlist'
               ? (
-                  <TVButton style={styles.actionBtn} borderRadius={6} onPress={handleCollect}>
-                    <Text size={16} color={theme['c-primary']}>收藏歌单</Text>
+                  <TVButton style={styles.actionBtn} borderRadius={sr(6)} onPress={handleCollect}>
+                    <Text size={sf(16)} color={theme['c-primary']}>收藏歌单</Text>
                   </TVButton>
                 )
               : null
             }
             {/* 播放详情：有封面显示封面，无封面显示播放/暂停图标 */}
-            <TVButton style={styles.playBtn} borderRadius={22} onPress={openPlayDetail}>
+            <TVButton style={styles.playBtn} borderRadius={sr(22)} onPress={openPlayDetail}>
               {musicInfo.pic
                 ? <Image url={musicInfo.pic} style={styles.playBtnImg} />
-                : <Icon name={isPlay ? 'pause' : 'play'} size={20} color={theme['c-primary']} />
+                : <Icon name={isPlay ? 'pause' : 'play'} size={sf(20)} color={theme['c-primary']} />
               }
             </TVButton>
           </View>
@@ -125,8 +126,8 @@ const styles = StyleSheet.create({
   topBar: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 8,
+    paddingHorizontal: sw(16),
+    paddingVertical: sh(8),
     borderBottomWidth: StyleSheet.hairlineWidth,
     flexShrink: 0,
   },
@@ -137,25 +138,25 @@ const styles = StyleSheet.create({
   actions: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: sw(8),
   },
   actionBtn: {
-    paddingHorizontal: 14,
-    paddingVertical: 8,
-    borderRadius: 6,
+    paddingHorizontal: sw(14),
+    paddingVertical: sh(8),
+    borderRadius: sr(6),
   },
   playBtn: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: sw(40),
+    height: sw(40),
+    borderRadius: sr(20),
     justifyContent: 'center',
     alignItems: 'center',
     overflow: 'hidden',
   },
   playBtnImg: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    width: sw(40),
+    height: sw(40),
+    borderRadius: sr(20),
   },
   content: {
     flex: 1,
