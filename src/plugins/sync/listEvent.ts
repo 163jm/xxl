@@ -16,13 +16,11 @@ export const buildUserListInfoFull = ({ id, name, source, sourceListId, list, lo
 
 export const getLocalListData = async(): Promise<LX.Sync.List.ListData> => {
   return Promise.all([
-    getListMusics(LIST_IDS.DEFAULT),
     getListMusics(LIST_IDS.LOVE),
     // eslint-disable-next-line @typescript-eslint/promise-function-async
     ...userLists.map(l => getListMusics(l.id)),
-  ]).then(([defaultList, loveList, ...userList]) => {
+  ]).then(([loveList, ...userList]) => {
     return {
-      defaultList,
       loveList,
       userList: userLists.map((l, i) => buildUserListInfoFull({ ...l, list: userList[i] })),
     }

@@ -252,7 +252,7 @@ export default memo(forwardRef<TVMyListGridPanelType>((_, ref) => {
     })
   }, [])
 
-  const paddedList: Array<LX.List.MyListInfo | null> = [...allList]
+  const paddedList: Array<LX.List.MyListInfo | null> = [...allList].filter(item => item.id !== LIST_IDS.DEFAULT)
   const remainder = paddedList.length % NUM_COLUMNS
   if (remainder > 0) {
     for (let i = 0; i < NUM_COLUMNS - remainder; i++) paddedList.push(null)
@@ -356,6 +356,6 @@ const s = StyleSheet.create({
   cardOuter: { width: '100%', alignItems: 'center' },
   card: { width: '100%', aspectRatio: 1.2, borderRadius: 8, justifyContent: 'center', alignItems: 'center', overflow: 'hidden' },
   listLabel: { fontSize: 18, fontWeight: '700' },
-  cardBottom: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 6, width: '100%' },
-  cardName: { flex: 1, lineHeight: 18, textAlign: 'center' },
+  cardBottom: { flexDirection: 'row', alignItems: 'center', marginTop: 6, width: '100%' },
+  cardName: { flex: 1, lineHeight: 18 },
 })

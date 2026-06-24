@@ -29,7 +29,7 @@ const updateUserList = async(userLists: LX.List.UserListInfo[]) => {
 const checkListExist = (changedIds: string[]) => {
   const index = changedIds.indexOf(listState.activeListId)
   if (index < 0 || listState.allList.some(l => l.id == listState.activeListId)) return
-  setActiveList(LIST_IDS.DEFAULT)
+  setActiveList(LIST_IDS.LOVE)
 }
 
 export const checkUpdateList = async(changedIds: string[]) => {
@@ -83,7 +83,7 @@ export class ListEvent extends Event {
     // await checkUpdateList(changedIds)
     const removedList = oldIds.filter(id => !allMusicList.has(id))
     if (removedList.length) await removeListMusics(removedList)
-    const allListIds = [LIST_IDS.DEFAULT, LIST_IDS.LOVE, ...userLists.map(l => l.id)]
+    const allListIds = [LIST_IDS.LOVE, ...userLists.map(l => l.id)]
     if (changedIds.includes(LIST_IDS.TEMP)) allListIds.push(LIST_IDS.TEMP)
     await saveListMusics([...allListIds.map(id => ({ id, musics: allMusicList.get(id) as LX.List.ListMusics }))])
 

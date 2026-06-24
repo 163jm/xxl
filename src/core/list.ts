@@ -100,7 +100,6 @@ export const clearListMusics = async(ids: string[]) => {
 export const overwriteList = async(listInfoFull: LX.List.MyDefaultListInfoFull | LX.List.MyLoveListInfoFull | LX.List.UserListInfoFull) => {
   let userListInfo
   switch (listInfoFull.id) {
-    case LIST_IDS.DEFAULT:
     case LIST_IDS.LOVE:
       break
 

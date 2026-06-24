@@ -8,7 +8,6 @@ import listState from '@/store/list/state'
 
 const getAllLists = async() => {
   const lists = []
-  lists.push(await getListMusics(listState.defaultList.id).then(musics => ({ ...listState.defaultList, list: musics })))
   lists.push(await getListMusics(listState.loveList.id).then(musics => ({ ...listState.loveList, list: musics })))
 
   for await (const list of listState.userList) {
@@ -20,6 +19,8 @@ const getAllLists = async() => {
 const importOldListData = async(lists: any[]) => {
   const allLists = await getAllLists()
   for (const list of lists) {
+    // 跳过试听列表（id: 'default'）
+    if (list.id === 'default') continue
     try {
       const targetList = allLists.find(l => l.id == list.id)
       if (targetList) {
@@ -39,13 +40,14 @@ const importOldListData = async(lists: any[]) => {
       console.log(err)
     }
   }
-  const defaultList = allLists.shift()!.list
   const loveList = allLists.shift()!.list
-  await overwriteListFull({ defaultList, loveList, userList: allLists as LX.List.UserListInfoFull[] })
+  await overwriteListFull({ loveList, userList: allLists as LX.List.UserListInfoFull[] })
 }
-const importNewListData = async(lists: Array<LX.List.MyDefaultListInfoFull | LX.List.MyLoveListInfoFull | LX.List.UserListInfoFull>) => {
+const importNewListData = async(lists: Array<LX.List.MyLoveListInfoFull | LX.List.UserListInfoFull>) => {
   const allLists = await getAllLists()
   for (const list of lists) {
+    // 跳过试听列表（id: 'default'）
+    if (list.id === 'default') continue
     try {
       const targetList = allLists.find(l => l.id == list.id)
       if (targetList) {
@@ -65,16 +67,12 @@ const importNewListData = async(lists: Array<LX.List.MyDefaultListInfoFull | LX.
       console.log(err)
     }
   }
-  const defaultList = allLists.shift()!.list
   const loveList = allLists.shift()!.list
-  await overwriteListFull({ defaultList, loveList, userList: allLists as LX.List.UserListInfoFull[] })
+  await overwriteListFull({ loveList, userList: allLists as LX.List.UserListInfoFull[] })
 }
 
 /**
  * 导入单个列表
- * @param listData
- * @param position
- * @returns
  */
 export const handleImportListPart = async(listData: LX.ConfigFile.MyListInfoPart['data'], position: number = listState.userList.length) => {
   const targetList = listState.allList.find(l => l.id === listData.id)
@@ -131,43 +129,33 @@ const importPlayList = async(path: string) => {
   }
 
   switch (configData.type) {
-    case 'defautlList': // 兼容0.6.2及以前版本的列表数据
-      if (!await showConfirm()) return true
-      await overwriteListMusics(LIST_IDS.DEFAULT, filterMusicList((configData.data as LX.List.MyDefaultListInfoFull).list.map(m => toNewMusicInfo(m))))
+    case 'defautlList': // 兼容0.6.2及以前版本，忽略试听列表
       break
     case 'playList':
       if (!await showConfirm()) return true
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       await importOldListData(configData.data)
       break
     case 'playList_v2':
       if (!await showConfirm()) return true
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       await importNewListData(configData.data)
       break
     case 'allData':
       if (!await showConfirm()) return true
-      // 兼容0.6.2及以前版本的列表数据
-      if (configData.defaultList) await overwriteListMusics(LIST_IDS.DEFAULT, filterMusicList((configData.defaultList as LX.List.MyDefaultListInfoFull).list.map(m => toNewMusicInfo(m))))
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      else await importOldListData(configData.playList)
+      // 兼容旧版本，忽略 defaultList，只导入 playList
+      if (configData.playList) await importOldListData(configData.playList)
       break
     case 'allData_v2':
       if (!await showConfirm()) return true
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       await importNewListData(configData.playList)
       break
     case 'playListPart':
       configData.data.list = filterMusicList((configData.data as LX.ConfigFile.MyListInfoPart['data']).list.map(m => toNewMusicInfo(m)))
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       void handleImportListPart(configData.data)
       return true
     case 'playListPart_v2':
       configData.data.list = filterMusicList((configData.data as LX.ConfigFile.MyListInfoPart['data']).list).map(m => fixNewMusicInfoQuality(m))
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       void handleImportListPart(configData.data)
       return true
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     default: showImportTip(configData.type)
   }
 }

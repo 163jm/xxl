@@ -12,7 +12,6 @@ export const ENV_PARAMS = [
 
 
 export const LIST_IDS = {
-  DEFAULT: 'default',
   LOVE: 'love',
   TEMP: 'temp',
   DOWNLOAD: 'download',

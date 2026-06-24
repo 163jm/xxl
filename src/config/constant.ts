@@ -8,7 +8,6 @@ export const SPLIT_CHAR = {
 } as const
 
 export const LIST_IDS = {
-  DEFAULT: 'default',
   LOVE: 'love',
   TEMP: 'temp',
   DOWNLOAD: 'download',
