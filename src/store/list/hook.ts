@@ -4,15 +4,14 @@ import { getListMusics } from '@/core/list'
 
 export const useMyList = () => {
   const [lists, setList] = useState(state.allList)
-  lists[0].name = global.i18n.t('list_name_default')
-  lists[1].name = global.i18n.t('list_name_love')
+  // lists[0] 现在是 loveList（试听列表已删除）
+  if (lists[0]) lists[0].name = global.i18n.t('list_name_love')
 
   useEffect(() => {
     const handleConfigUpdate = (keys: Array<keyof LX.AppSetting>) => {
       if (!keys.includes('common.langId')) return
       setList((lists) => {
-        lists[0].name = global.i18n.t('list_name_default')
-        lists[1].name = global.i18n.t('list_name_love')
+        if (lists[0]) lists[0].name = global.i18n.t('list_name_love')
         return [...lists]
       })
     }
@@ -88,7 +87,7 @@ export const useListFetching = (listId: string) => {
   useEffect(() => {
     let prevStatus = state.fetchingListStatus[listId]
     const handleUpdate = (status: InitState['fetchingListStatus']) => {
-      let currentStatus = status[listId]
+      const currentStatus = status[listId]
       if (currentStatus == null || prevStatus == status[listId]) return
       setFetching(prevStatus = currentStatus)
     }
@@ -100,4 +99,3 @@ export const useListFetching = (listId: string) => {
 
   return fetching
 }
-
